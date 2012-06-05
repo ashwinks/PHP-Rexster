@@ -1,0 +1,10 @@
+PHP Rexster is a PHP wrapper for the "Rexster":https://github.com/tinkerpop/rexster "REST API":https://github.com/tinkerpop/rexster/wiki/Basic-REST-API
+
+Getting info on the current graph
+@
+$graph_url = 'http://localhost:8182';
+$graph_name = 'mygraph';
+
+$graph = new Rexster_Graph($graph_url, $graph_name);
+$graph = $graph->get();
+@
