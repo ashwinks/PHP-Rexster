@@ -44,6 +44,44 @@
             return new Rexster_Vertex($this, $response['data']['results']);
 
         }
+        
+        /**
+         * Get a vertex by a key value pair
+         * 
+         * @param string $attribute_key
+         * @param string $attribute_value
+         */
+        public function getVertexByAttribute($attribute_key, $attribute_value){
+            
+            if (empty($attribute_key)){
+                throw new Rexster_Exception("Invalid attribute key");
+            }
+            
+            if (empty($attribute_value)){
+                throw new Rexster_Exception("Invalid attribute value");
+            }
+            
+            $attribute_key = urlencode($attribute_key);
+            $attribute_value = urlencode($attribute_value);
+            
+            $response = $this->makeRequest('GET', "/vertices?key={$attribute_key}&value={$attribute_value}");
+
+            if (count($response['data']['results']) > 1){
+                
+	            $arr = array();
+	            foreach ($response['data']['results'] as $item){
+	            	array_push($arr, new Rexster_Vertex($this, $item));
+	            }
+	            
+            	return $arr;
+            	
+            }else{
+                
+                return new Rexster_Vertex($this, $response['data']['results'][0]);
+                
+            }
+
+        }
 
         /**
          * Get vertices from this vertex in any direction
@@ -150,6 +188,7 @@
         /**
          * Get all vertices by index
          * 
+         * @deprecated as of Blueprints 2.0
          * @param string $indexname
          * @param string $key
          * @param string $value
@@ -186,6 +225,8 @@
 
         /**
          * Get all indexes in this graph
+         * 
+         * @deprecated as of Blueprints 2.0
          * 
          * @return multitype:array of Rexster_Index
          */

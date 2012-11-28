@@ -42,5 +42,47 @@
             return $arr;
 
         }
+        
+        public function createOutEdge($toVertex, $label = ''){
+            
+            if (empty($toVertex)){
+                throw new Rexster_Exception("Invalid vertex id");
+            }
+            
+            $data = array(
+            	'_outV' => $this->id, 
+            	'_inV' => $toVertex
+            );
+            
+            if (!empty($label)){
+                $data['_label'] = $label;
+            }
+            
+            $e = new Rexster_Edge($this->graph, $data);
+            
+            return $e->create();
+  
+        }
+        
+        public function createInEdge($fromVertex, $label = ''){
+            
+            if (empty($fromVertex)){
+            	throw new Rexster_Exception("Invalid vertex id");
+            }
+            
+            $data = array(
+            	'_outV' => $fromVertex,
+            	'_inV' => $this->id
+            );
+            
+            if (!empty($label)){
+            	$data['_label'] = $label;
+            }
+            
+            $e = new Rexster_Edge($this->graph, $data);
+            
+            return $e->create();
+        	
+        }
 
     }

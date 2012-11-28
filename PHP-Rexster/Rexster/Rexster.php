@@ -88,6 +88,7 @@
 
             if (!empty($data)){
 
+                // type casting
                 if (is_array($data) && ($method == 'POST' || $method == 'PUT')){
                     foreach ($data as $k => &$v){
                         if (substr($k, 0, 1) == '_') continue;
@@ -134,7 +135,7 @@
 
             $ch = curl_init();
             curl_setopt_array($ch, $options);
-
+            
             $response = array();
             $response['raw_data'] = curl_exec($ch);
             $response['code'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -146,7 +147,7 @@
 
             }else{
 
-                $error_msg = "Could not make {$method} request to {$url}. Response Code: {$response['code']}";
+                $error_msg = "Curl {$method} request to {$url} failed. Response Code: {$response['code']}";
                 if (isset($response['data']['message'])){
                     $error_msg .= " - Message: {$response['data']['message']}";
                 }

@@ -87,6 +87,16 @@
             return new $child($this->graph, $response['data']['results']);
 
         }
+        
+        public function getId(){
+            
+            if (isset($this->id)){
+                return $this->id;
+            }else{
+                return $this->properties['_id'];
+            }
+
+        }
 
         public function setExtensionPath($path){
 
@@ -122,7 +132,10 @@
 
         public function toArray(){
 
-            return $this->properties;
+            $data = $this->properties;
+            $data['id'] = $this->id;
+            
+            return $data;
 
         }
 
