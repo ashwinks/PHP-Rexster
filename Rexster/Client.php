@@ -193,7 +193,7 @@
 
 			}
 			
-			if ($content_length){
+			if (isset($content_length)){
 			    $headers[] = "Content-Length: {$content_length}";
 			}
 			
