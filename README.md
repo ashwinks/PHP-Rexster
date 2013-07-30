@@ -1,7 +1,7 @@
 PHP-Rexster
 ===========
 
-PHP SDK for the Rexster REST API
+PHP SDK for the [Rexster REST API](https://github.com/tinkerpop/rexster/wiki/Basic-REST-API)
 
 Usage
 ===========
