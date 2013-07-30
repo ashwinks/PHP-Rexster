@@ -23,7 +23,7 @@ $edge = $graph->getEdge($edge_id);
 
 Get a vertex by an indexed property or attribute
 ```php
-$vertex = getVertexByAttribute('name', $name);
+$vertex = $graph->getVertexByAttribute('name', $name);
 ```
 
 Get all vertices with offsets for paging
