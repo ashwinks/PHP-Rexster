@@ -44,4 +44,20 @@
 
 	    }
 	    
+	    public function getNthDepthVertices($starting_vertex_id, $depth, $include_path = false, $label_filter = null){
+	    	 
+	    	$script = 'g.v(' . $starting_vertex_id . ').as(\'x\').outE(';
+	    	if ($label_filter){
+	    		$script .= '\'' . $label_filter . '\'';
+	    	}
+	    	$script .= ').inV.loop(\'x\'){it.loops<' . ($depth + 1) . '}';
+	    	 
+	    	if ($include_path){
+	    		$script .= ".path";
+	    	}
+	    
+	    	return $this->runScript($script);
+	    	 
+	    }
+
 	}
