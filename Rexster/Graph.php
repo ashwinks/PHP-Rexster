@@ -41,6 +41,12 @@
 			return Factory::getObject($this, $response);
 	
 		}
+		
+		public function getVerticesByAttribute($attribute_key, $attribute_value){
+			
+			return $this->getVertexByAttribute($attribute_key, $attribute_value);
+			
+		}
 	
 		public function getVertexByAttribute($attribute_key, $attribute_value){
 	
