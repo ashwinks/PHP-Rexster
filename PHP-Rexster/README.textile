@@ -1,2 +1,0 @@
-PHP Rexster is a PHP wrapper for the "Rexster":https://github.com/tinkerpop/rexster "REST API":https://github.com/tinkerpop/rexster/wiki/Basic-REST-API
-Usage and sample code can be found on the "Wiki":https://github.com/redinkdesign/PHP-Rexster/wiki
