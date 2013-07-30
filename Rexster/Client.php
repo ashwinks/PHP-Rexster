@@ -159,6 +159,12 @@
 					case 'POST':
 					case 'PUT':
 					        
+						foreach ($data as $k => &$v){
+							if (is_null($v)){
+								unset($data[$k]);
+							}
+						}
+						
 					    $data = json_encode($data);
 					
 						$options[CURLOPT_POSTFIELDS] = $data;
