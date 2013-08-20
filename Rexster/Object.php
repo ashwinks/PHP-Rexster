@@ -98,6 +98,13 @@
             if (empty($data)){
                 throw new \InvalidArgumentException("Invalid properies to update - Properties array should be an associative array of property => value");
             }
+            
+            $reserved = array('id', '_id');
+            foreach ($reserved as $key){
+            	if (isset($data[$key])){
+            		unset($data[$key]);
+            	}
+            }
 
             $url = '/' . $this->getPath() . '/' . $this->getId();
 
