@@ -40,7 +40,11 @@
 	        
 			$response = $this->getClient()->makeRequest('GET', $path . '/tp/gremlin', array('script' => $script));
 			
-			return Factory::getGeneric($this->getClient(), $response);
+			if (isset($response['results']) && count($response['results']) > 0){
+			    return Factory::getGeneric($this->getClient(), $response);
+			}else{
+			    return false;
+			}
 
 	    }
 	    
