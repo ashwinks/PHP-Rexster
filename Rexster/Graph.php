@@ -41,15 +41,27 @@
 			return Factory::getObject($this, $response);
 	
 		}
+	
+		/**
+		 * 
+		 * @param unknown_type $attribute_key
+		 * @param unknown_type $attribute_value
+		 * @return \Rexster\Vertex
+		 */
+		public function getVertexByAttribute($attribute_key, $attribute_value){
+		    
+		    $vertices = $this->getVerticesByAttribute($attribute_key, $attribute_value);
+		    
+		    if (is_array($vertices)){
+		        return $vertices[0];
+		    }else{
+		        return $vertices;
+		    }
+	
+		}
 		
 		public function getVerticesByAttribute($attribute_key, $attribute_value){
-			
-			return $this->getVertexByAttribute($attribute_key, $attribute_value);
-			
-		}
-	
-		public function getVertexByAttribute($attribute_key, $attribute_value){
-	
+		    
 			if (empty($attribute_key)){
 				throw new \InvalidArgumentException('Invalid attribute key');
 			}
@@ -63,8 +75,10 @@
 	
 			$response = $this->makeRequest('GET', "/vertices?key={$attribute_key}&value={$attribute_value}");
 	
-			return Factory::getObject($this, $response);
-	
+			$obj = Factory::getObject($this, $response);
+			
+			return $obj;
+  
 		}
 	
 		public function getDirectionalVertices($vertex_id, $direction, $label = null){
