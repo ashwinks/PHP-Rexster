@@ -75,6 +75,9 @@
 			}
 	
 			$response = $this->makeRequest('GET', "/{$url}", $data);
+			if (!$response){
+			    throw new \RuntimeException($this->getLastErrorMessage());
+			}
 
 			return Factory::getGeneric($this, $response);
 	
@@ -87,7 +90,10 @@
 			}
 	
 			$response = $this->makeRequest('POST', "/{$url}", $data);
-	
+			if (!$response){
+				throw new \RuntimeException($this->getLastErrorMessage());
+			}
+
 			return Factory::getGeneric($this, $response);
 	
 		}
@@ -99,7 +105,10 @@
 			}
 	
 			$response = $this->makeRequest('PUT', "/{$url}", $data);
-	
+			if (!$response){
+				throw new \RuntimeException($this->getLastErrorMessage());
+			}
+
 			return Factory::getGeneric($this, $response);
 	
 		}
@@ -133,38 +142,43 @@
 	
 			if (!empty($data)){
 
-				if (is_array($data) && ($method == 'POST' || $method == 'PUT')){
+// 				if (is_array($data) && ($method == 'POST' || $method == 'PUT')){
 					
-				    foreach ($data as $k => &$v){
+// 				    foreach ($data as $k => &$v){
 					    
-					    if (substr($k, 0, 1) == '_') continue;
-						if (is_string($v)) continue;
+// 					    if (substr($k, 0, 1) == '_') continue;
+// 						if (is_string($v)) continue;
 
-						if (is_int($v)){
-							$v = "(integer,{$v})";
-						}else if (is_float($v)){
-							$v = "(float,{$v})";
-						}else if (is_long($v)){
-						    $v = "(long,{$v})";
-						}else if (is_double($v)){
-						    $v = "(double,{$v})";
-						}
+// 						if (is_int($v)){
+// 							$v = "(integer,{$v})";
+// 						}else if (is_float($v)){
+// 							$v = "(float,{$v})";
+// 						}else if (is_long($v)){
+// 						    $v = "(long,{$v})";
+// 						}else if (is_double($v)){
+// 						    $v = "(double,{$v})";
+// 						}
 						
-					}
+// 					}
 					
-				}
+// 				}
 	
 				switch ($method){
 	
 					case 'POST':
 					case 'PUT':
-					        
-						foreach ($data as $k => &$v){
-							if (is_null($v)){
-								unset($data[$k]);
-							}
-						}
-						
+
+					    foreach ($data as $k => &$v){
+					        if (is_null($v)){
+					            unset($data[$k]);
+					        }
+					    }
+					    
+					    foreach ($data as $k => &$v){
+					        if (is_string($v)){
+					            $v = utf8_encode($v);
+					        }
+					    }
 					    $data = json_encode($data);
 					
 						$options[CURLOPT_POSTFIELDS] = $data;
