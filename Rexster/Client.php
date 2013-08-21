@@ -30,6 +30,13 @@
 
 		}
 		
+		/**
+		 * Set the graph name
+		 * 
+		 * @param string $graph_name
+		 * @throws \InvalidArgumentException
+		 * @return \Rexster\Client
+		 */
 		public function setGraphName($graph_name){
 		    
 		    $graph_name = trim($graph_name);
@@ -43,12 +50,24 @@
 		    
 		}
 	
+		/**
+		 * Get the graph name
+		 * 
+		 * @return string
+		 */
 		public function getGraphName(){
 	
 			return $this->_graph_name;
 	
 		}
 		
+		/**
+		 * Set the base url of the graph
+		 * 
+		 * @param string $base_url
+		 * @throws \InvalidArgumentException
+		 * @return \Rexster\Client
+		 */
 		public function setGraphBaseUrl($base_url){
 		    
 		    $base_url = trim($base_url);
@@ -62,12 +81,26 @@
 		    
 		}
 	
+		/**
+		 * Get the base url of the graph
+		 * 
+		 * @return string
+		 */
 		public function getGraphBaseUrl(){
 	
 			return $this->_base_url;
 	
 		}
 	
+		/**
+		 * Performs a GET request to a custom endpoint with payload $data
+		 * 
+		 * @param string $url
+		 * @param array $data
+		 * @throws \InvalidArgumentException
+		 * @throws \RuntimeException
+		 * @return Ambigous <boolean, \Rexster\Object>
+		 */
 		public function getCustom($url, array $data = array()){
 	
 			if (empty($url)){
@@ -83,6 +116,15 @@
 	
 		}
 	
+		/**
+		 * Performs a POST request to a custom endpoint with payload $data
+		 * 
+		 * @param string $url
+		 * @param array $data
+		 * @throws \InvalidArgumentException
+		 * @throws \RuntimeException
+		 * @return Ambigous <boolean, \Rexster\Object>
+		 */
 		public function postCustom($url, array $data = array()){
 	
 			if (empty($url)){
@@ -98,6 +140,15 @@
 	
 		}
 	
+		/**
+		 * Performs a PUT request to a custom endpoint with payload $data
+		 * 
+		 * @param string $url
+		 * @param array $data
+		 * @throws \InvalidArgumentException
+		 * @throws \RuntimeException
+		 * @return Ambigous <boolean, \Rexster\Object>
+		 */
 		public function putCustom($url, array $data = array()){
 	
 			if (empty($url)){
@@ -113,6 +164,18 @@
 	
 		}
 	
+		/**
+		 * Makes a reques to the Rexster API
+		 * 
+		 * @param string $method
+		 * @param string $path
+		 * @param array $data
+		 * @param string $content_type
+		 * @param string $accept
+		 * @throws \InvalidArgumentException
+		 * @throws \RuntimeException
+		 * @return boolean|mixed
+		 */
 		public function makeRequest($method, $path = null, array $data = array(), $content_type = self::HEADER_JSON, $accept = self::HEADER_JSON){
    
 			if (empty($method)){
@@ -141,27 +204,28 @@
 			$headers = array("Accept: {$accept}");
 	
 			if (!empty($data)){
-
-// 				if (is_array($data) && ($method == 'POST' || $method == 'PUT')){
+				/*
+				if (is_array($data) && ($method == 'POST' || $method == 'PUT')){
 					
-// 				    foreach ($data as $k => &$v){
+				    foreach ($data as $k => &$v){
 					    
-// 					    if (substr($k, 0, 1) == '_') continue;
-// 						if (is_string($v)) continue;
+					    if (substr($k, 0, 1) == '_') continue;
+						if (is_string($v)) continue;
 
-// 						if (is_int($v)){
-// 							$v = "(integer,{$v})";
-// 						}else if (is_float($v)){
-// 							$v = "(float,{$v})";
-// 						}else if (is_long($v)){
-// 						    $v = "(long,{$v})";
-// 						}else if (is_double($v)){
-// 						    $v = "(double,{$v})";
-// 						}
+						if (is_int($v)){
+							$v = "(integer,{$v})";
+						}else if (is_float($v)){
+							$v = "(float,{$v})";
+						}else if (is_long($v)){
+						    $v = "(long,{$v})";
+						}else if (is_double($v)){
+						    $v = "(double,{$v})";
+						}
 						
-// 					}
+					}
 					
-// 				}
+				}
+				*/
 	
 				switch ($method){
 	
@@ -296,24 +360,45 @@
 	
 		}
 		
+		/**
+		 * Get the last CURL request that was sent
+		 * 
+		 * @return array
+		 */
 		public function getLastRequest(){
 		    
 		    return $this->_last_request;
 		    
 		}
 		
+
+		/**
+		 * Alias of @method getResponseMessage()
+		 * 
+		 * @return string
+		 */
 		public function getLastErrorMessage(){
 		    
 		    return $this->getResponseMessage();
 		    
 		}
 		
+		/**
+		 * Get the response message from the Rexster api if there is any
+		 * 
+		 * @return string
+		 */
 		public function getResponseMessage(){
 		    
 		    return $this->_response_message;
 		    
 		}
 		
+		/**
+		 * Get the CURL response code from the last request
+		 * 
+		 * @return int
+		 */
 		public function getResponseCode(){
 		    
 		    return $this->_response_code;
@@ -326,6 +411,14 @@
 		    
 		}
 		
+		/**
+		 * Expects a comma separated list of property names to return in the results. 
+		 * Element meta-data will always be returned even if rexster.returnKeys are specified. 
+		 * If a valid value for this parameter is not specified, then all properties are returned.
+		 * 
+		 * @param array $keys
+		 * @return \Rexster\Client
+		 */
 		public function setReturnKeys(array $keys){
 		    
 		    $this->_return_keys = $keys;
@@ -334,6 +427,13 @@
 		    
 		}
 		
+		/**
+		 * Expects a numeric value that represents the start point for returning a set of records and is used in conjunction with rexster.offset.end to allow for paging of results. 
+		 * If used without a valid rexster.offset.end parameter specified, Rexster will return all remaining records in the set.
+		 * 
+		 * @param int $start
+		 * @return \Rexster\Client
+		 */
 		public function setOffsetStart($start){
 		    
 		    $this->_offset_start = $start;
@@ -342,6 +442,13 @@
 		    
 		}
 
+		/**
+		 * Expects a numeric value that represents the end point for returning a set of records and is used in conjunction with rexster.offset.start to allow for paging of results. 
+		 * If used without a valid rexster.offset.start parameter specified, Rexster will assume the start value to be zero.
+		 * 
+		 * @param int $end
+		 * @return \Rexster\Client
+		 */
 		public function setOffsetEnd($end){
 		    
 		    $this->_offset_end = $end;
@@ -362,6 +469,11 @@
 		    
 		}
 		
+		/**
+		 * Get a CURL handle
+		 * 
+		 * @return CURL
+		 */
 		protected function _getHandle(){
 	
 			if (!$this->_handle){

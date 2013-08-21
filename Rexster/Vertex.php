@@ -11,8 +11,8 @@
          * 
          * @param string $direction - in, out, both
          * @param string $label
-         * @throws Rexster_Exception
-         * @return multitype:array of Rexster_Edge
+         * @throws Exception
+         * @return multitype:array of \Rexster\Edge
          */
         public function getDirectionalEdges($direction, $label = null){
 

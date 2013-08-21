@@ -24,6 +24,10 @@
             
         }
         
+        /**
+         * (non-PHPdoc)
+         * @see \Rexster\Object::create()
+         */
         public function create(){
             
             if (!$this->getProperty('_inV')){
