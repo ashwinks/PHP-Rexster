@@ -47,21 +47,39 @@
 			}
 
 	    }
-	    
+
 	    public function getNthDepthVertices($starting_vertex_id, $depth, $include_path = false, $label_filter = null){
-	    	 
+	    
 	    	$script = 'g.v(' . $starting_vertex_id . ').as(\'x\').outE(';
 	    	if ($label_filter){
 	    		$script .= '\'' . $label_filter . '\'';
 	    	}
 	    	$script .= ').inV.loop(\'x\'){it.loops<' . ($depth + 1) . '}';
-	    	 
+	    
 	    	if ($include_path){
 	    		$script .= ".path";
 	    	}
-	    
-	    	return $this->runScript($script);
-	    	 
-	    }
 
+	    	return $this->runScript($script);
+	    
+	    }
+	    
+	    public function outEdgeExists($outV, $inV, $edge_label){
+	        
+	        return $this->edgeExists($outV, $inV, $edge_label, 'outE');
+	        
+	    }
+	    
+	    public function edgeExists($outV, $inV, $edge_label, $edge_direction){
+	        
+	        return $this->runScriptOnVertex($outV, "v.{$edge_direction}('{$edge_label}').inV.filter{it.id=={$inV}}");
+	       
+	    }
+	    
+	    public function inEdgeExists($outV, $inV, $edge_label){
+	        
+	        return $this->edgeExists($outV, $inV, $edge_label, 'inE');
+	        
+	    }
+	    
 	}

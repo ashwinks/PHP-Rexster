@@ -1,6 +1,6 @@
 <?php
 
-	namespace Rexster;
+    namespace Rexster;
 
     class Edge extends Object {
 
@@ -52,7 +52,7 @@
                 throw new \RuntimeException('Cannot delete properties from edges yet - Rexster deletes the entire edge');
             }
             
-        	return parent::delete();
+            return parent::delete();
         
         }
         

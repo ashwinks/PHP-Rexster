@@ -1,6 +1,6 @@
 <?php
 
-	namespace Rexster;
+    namespace Rexster;
 
     class Vertex extends Object {
 
@@ -54,11 +54,11 @@
             $direction = rtrim(strtolower($direction), 'e');
             $directions = array('in', 'out', 'both');
             if (!in_array($direction, $directions)){
-            	throw new \InvalidArgumentException("Invalid direction {$direction}");
+                throw new \InvalidArgumentException("Invalid direction {$direction}");
             }
             
             if (empty($this->id)){
-            	throw new \InvalidArgumentException("Invalid vertex id");
+                throw new \InvalidArgumentException("Invalid vertex id");
             }
             
             $url = $this->getPath() . '/' . $this->getId() . "/{$direction}";
@@ -76,8 +76,8 @@
             }
             
             $data = array(
-            	'_outV' => $this->getId(), 
-            	'_inV' => $toVertex
+                '_outV' => $this->getId(), 
+                '_inV' => $toVertex
             );
             
             if (!empty($label)){
@@ -97,16 +97,16 @@
         public function createInEdge($fromVertex, $label = '', array $properties = array()){
             
             if (empty($fromVertex)){
-            	throw new \InvalidArgumentException("Invalid vertex id");
+                throw new \InvalidArgumentException("Invalid vertex id");
             }
             
             $data = array(
-            	'_outV' => $fromVertex,
-            	'_inV' => $this->getId()
+                '_outV' => $fromVertex,
+                '_inV' => $this->getId()
             );
             
             if (!empty($label)){
-            	$data['_label'] = $label;
+                $data['_label'] = $label;
             }
             
             if (!empty($properties)){
@@ -116,13 +116,13 @@
             $e = new Edge($this->getClient(), $data);
             
             return $e->create();
-        	
+            
         }
         
         public function getOutVerticesCount(){
             
             if (empty($this->id)){
-            	throw new \InvalidArgumentException("Invalid vertex id");
+                throw new \InvalidArgumentException("Invalid vertex id");
             }
             
             $response = $this->getClient()->makeRequest('GET', $this->getPath() . '/' . $this->getId() . '/outCount');
@@ -134,7 +134,7 @@
         public function getInVerticesCount(){
             
             if (empty($this->id)){
-            	throw new \InvalidArgumentException("Invalid vertex id");
+                throw new \InvalidArgumentException("Invalid vertex id");
             }
             
             $response = $this->getClient()->makeRequest('GET', $this->getPath() . '/' . $this->getId() . '/inCount');
@@ -146,7 +146,7 @@
         public function getBothDirectionVerticesCount(){
             
             if (empty($this->id)){
-            	throw new \InvalidArgumentException("Invalid vertex id");
+                throw new \InvalidArgumentException("Invalid vertex id");
             }
             
             $response = $this->getClient()->makeRequest('GET', $this->getPath() . '/' . $this->getId() . '/bothCount');
@@ -158,7 +158,7 @@
         public function getOutVertexIds(){
             
             if (empty($this->id)){
-            	throw new \InvalidArgumentException("Invalid vertex id");
+                throw new \InvalidArgumentException("Invalid vertex id");
             }
             
             $response = $this->getClient()->makeRequest('GET', $this->getPath() . '/' . $this->getId() . '/outIds');
@@ -170,7 +170,7 @@
         public function getInVertexIds(){
             
             if (empty($this->id)){
-            	throw new \InvalidArgumentException("Invalid vertex id");
+                throw new \InvalidArgumentException("Invalid vertex id");
             }
             
             $response = $this->getClient()->makeRequest('GET', $this->getPath() . '/' . $this->getId() . '/inIds');
@@ -182,7 +182,7 @@
         public function getBothDirectionVertexIds(){
             
             if (empty($this->id)){
-            	throw new \InvalidArgumentException("Invalid vertex id");
+                throw new \InvalidArgumentException("Invalid vertex id");
             }
             
             $response = $this->getClient()->makeRequest('GET', $this->getPath() . '/' . $this->getId() . '/bothIds');

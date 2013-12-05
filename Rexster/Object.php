@@ -1,6 +1,6 @@
 <?php
 
-	namespace Rexster;
+    namespace Rexster;
 
     class Object extends Collection {
 
@@ -101,9 +101,9 @@
             
             $reserved = array('id', '_id');
             foreach ($reserved as $key){
-            	if (isset($data[$key])){
-            		unset($data[$key]);
-            	}
+                if (isset($data[$key])){
+                    unset($data[$key]);
+                }
             }
 
             $url = '/' . $this->getPath() . '/' . $this->getId();
@@ -117,11 +117,11 @@
         public function delete(array $properties = array()){
             
             if (empty($this->id)){
-            	throw new \InvalidArgumentException('Invalid object id to update');
+                throw new \InvalidArgumentException('Invalid object id to update');
             }
             
             if ($this->id != $this->_id){
-            	throw new \InvalidArgumentException("Node ID's do not match? this->_id = {$this->_id} -- this->id = {$this->id}");
+                throw new \InvalidArgumentException("Node ID's do not match? this->_id = {$this->_id} -- this->id = {$this->id}");
             }
 
             $url = '/' . $this->getPath() . '/' . $this->getId();
@@ -167,7 +167,7 @@
             $data = parent::toArray();
             
             if (isset($this->id)){
-            	$data['id'] = $this->id;
+                $data['id'] = $this->id;
             }
             
             return $data;
